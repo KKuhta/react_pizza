@@ -1,0 +1,63 @@
+import React from 'react';
+import debounce from 'lodash.debounce';
+
+import styles from './Search.module.scss';
+import { SearchContext } from '../../App';
+
+import closedInput from '../../assets/img/211651_close_round_icon.svg';
+
+const Search = () => {
+  const [value, setValue] = React.useState();
+  const { setSearchValue } = React.useContext(SearchContext);
+  const inputRef = React.useRef();
+
+  const testDebounce = React.useCallback(
+    debounce(() => {
+      console.log('HELLO');
+    }, 1000),
+    [],
+  );
+
+  const onClickClear = () => {
+    setSearchValue('');
+    setValue('');
+    inputRef.current.focus();
+  };
+
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 250),
+    [],
+  );
+  const onChangeInput = (event) => {
+    setValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
+
+  React.useEffect(() => {
+    document.querySelector('input');
+  }, []);
+
+  return (
+    <div className={styles.root}>
+      <input
+        ref={inputRef}
+        value={value}
+        onChange={onChangeInput}
+        className={styles.input}
+        placeholder="Поиск пиццы..."
+      />
+      {value && (
+        <img
+          onClick={onClickClear}
+          className={styles.closedInput}
+          src={closedInput}
+          alt="closedInput"
+        />
+      )}
+    </div>
+  );
+};
+
+export default Search;
