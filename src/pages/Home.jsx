@@ -4,7 +4,7 @@ import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage, selectFilter } from '../redux/slices/filterSlices';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
-
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -99,7 +99,11 @@ const Home = () => {
     //   }
     //   return false;
     // })
-    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+    .map((obj) => (
+      <Link key={obj.id} to={`/pizza/${obj.id}`}>
+        <PizzaBlock {...obj} />
+      </Link>
+    ));
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
