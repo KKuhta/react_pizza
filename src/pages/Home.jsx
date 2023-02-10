@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlices';
-import { fetchPizzas } from '../redux/slices/pizzasSlice';
+import { setCategoryId, setCurrentPage, selectFilter } from '../redux/slices/filterSlices';
+import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
 
 import { useNavigate } from 'react-router-dom';
 import Categories from '../components/Categories';
@@ -19,8 +19,8 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { items, status } = useSelector((state) => state.pizzas);
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
+  const { items, status } = useSelector(selectPizzaData);
+  const { categoryId, sort, currentPage } = useSelector(selectFilter);
 
   const { searchValue } = React.useContext(SearchContext);
 
