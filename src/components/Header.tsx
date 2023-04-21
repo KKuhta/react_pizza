@@ -7,12 +7,12 @@ import { selectCart } from '../redux/slices/cartSlice';
 function Header() {
   const { items, totalPrice } = useSelector(selectCart);
   const location = useLocation();
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
   return (
-    <div class="header">
-      <div class="container">
+    <div className="header">
+      <div className="container">
         <Link to="/">
-          <div class="header__logo">
+          <div className="header__logo">
             <img width="38" src={logoSvg} alt="Pizza logo" />
             <div>
               <h1>React Pizza</h1>
@@ -21,11 +21,11 @@ function Header() {
           </div>
         </Link>
         <Search />
-        <div class="header__cart">
+        <div className="header__cart">
           {location.pathname !== '/cart' && (
-            <Link to="/cart" class="button button--cart">
+            <Link to="/cart" className="button button--cart">
               <span>{totalPrice} ₽</span>
-              <div class="button__delimiter"></div>
+              <div className="button__delimiter"></div>
               <svg
                 width="18"
                 height="18"
